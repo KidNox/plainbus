@@ -1,0 +1,28 @@
+group 'com.kidnox'
+version rootProject.ext.version
+
+apply plugin: 'java-library'
+apply plugin: 'com.novoda.bintray-release'
+
+sourceCompatibility = 1.8
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile 'org.mockito:mockito-core:2.7.22'
+    testCompile 'org.openjdk.jmh:jmh-core:1.18'
+    testCompile 'org.openjdk.jmh:jmh-generator-annprocess:1.18'
+}
+//./gradlew clean build bintrayUpload
+publish {
+    userOrg = 'kidnox'
+    groupId = 'com.kidnox'
+    artifactId = 'plainbus'
+    publishVersion = rootProject.ext.version
+
+    website = 'https://github.com/KidNox/plainbus'
+
+    dryRun = false
+
+    bintrayUser = rootProject.ext.bintrayUser
+    bintrayKey = rootProject.ext.bintrayKey
+}
