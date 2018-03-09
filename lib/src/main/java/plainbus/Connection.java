@@ -38,30 +38,6 @@ public class Connection {
         }
     }
 
-    static class WeakConnection extends Connection {
-        volatile boolean closed = false;
-
-        WeakConnection(BusImpl bus) {
-            super(bus);
-        }
-
-        @Override void close() {
-            closed = true;
-            super.close();
-        }
-
-        @Override protected void finalize() throws Throwable {
-            if (!closed) {
-                synchronized (bus) {
-                    if (!closed) {
-                        close();
-                    }
-                }
-            }
-            super.finalize();
-        }
-    }
-
     interface ConnectionFactory {
         Connection createConnection(BusImpl bus);
     }

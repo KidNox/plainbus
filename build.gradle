@@ -16,7 +16,7 @@ allprojects {
 }
 
 ext {
-    version = '0.6'
+    version = '0.6.1'
 
     def props = new Properties()
     file("user.properties").withInputStream { props.load(it) }

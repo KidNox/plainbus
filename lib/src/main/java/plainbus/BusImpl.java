@@ -6,16 +6,13 @@ import java.util.Map;
 public class BusImpl implements Bus {
 
     private final Map<Object, Listener> eventTypeToListenerMap = new HashMap<>();
-    private final Map<Object, Connection> connectionsMap;
+    private final Map<Object, Connection> connectionsMap = new HashMap<>();
     private final Connection.ConnectionFactory connectionFactory;
     private final ConnectionHandler connectionHandler;
 
-    BusImpl(ConnectionHandler connectionHandler,
-            Connection.ConnectionFactory connectionFactory,
-            Map<Object, Connection> connectionsMap) {
+    BusImpl(ConnectionHandler connectionHandler, Connection.ConnectionFactory connectionFactory) {
         this.connectionHandler = connectionHandler;
         this.connectionFactory = connectionFactory;
-        this.connectionsMap = connectionsMap;
     }
 
     @Override public synchronized Connection connect(Object context) {

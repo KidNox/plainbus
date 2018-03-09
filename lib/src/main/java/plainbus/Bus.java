@@ -1,8 +1,5 @@
 package plainbus;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.WeakHashMap;
 
 public interface Bus {
 
@@ -17,15 +14,9 @@ public interface Bus {
 
     class Builder {
         private ConnectionHandler connectionHandler;
-        private boolean weak;
 
         public Builder withConnectionHandler(ConnectionHandler connectionHandler) {
             this.connectionHandler = connectionHandler;
-            return this;
-        }
-
-        public Builder withWeakConnections() {
-            weak = true;
             return this;
         }
 
@@ -33,9 +24,7 @@ public interface Bus {
             if (connectionHandler == null) {
                 connectionHandler = new ConnectionHandler.Stub();
             }
-            Connection.ConnectionFactory connectionFactory = weak ? Connection.WeakConnection::new : Connection::new;
-            Map<Object, Connection> connectionsMap = weak ? new WeakHashMap<>() : new HashMap<>();
-            return new BusImpl(connectionHandler, connectionFactory, connectionsMap);
+            return new BusImpl(connectionHandler, Connection::new);
         }
     }
 }
